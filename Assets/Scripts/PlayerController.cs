@@ -5,6 +5,7 @@ public class PlayerController : MonoBehaviour
 {
     public float jumpForce;
     public float gravityModifier;
+    public float hp;
     public ParticleSystem explosionParticle;
     public ParticleSystem dirtParticle;
 
@@ -13,6 +14,7 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody rb;
     private InputAction jumpAction;
+    public InputAction dashAction;
     private bool isOnGround = true;
 
     private Animator playerAnim;
@@ -34,6 +36,7 @@ public class PlayerController : MonoBehaviour
         Physics.gravity *= gravityModifier;
 
         jumpAction = InputSystem.actions.FindAction("Jump");
+        dashAction = InputSystem.actions.FindAction("Sprint");
 
         gameOver = false;
     }
@@ -58,6 +61,8 @@ public class PlayerController : MonoBehaviour
         {
             jumpCount = 2;
         }
+
+        
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -66,16 +71,26 @@ public class PlayerController : MonoBehaviour
         {
             isOnGround = true;
             dirtParticle.Play();
+            
         }
         else if (collision.gameObject.CompareTag("Obstacle"))
         {
-            Debug.Log("Game Over!");
-            gameOver = true;
-            playerAnim.SetBool("Death_b", true);
-            playerAnim.SetInteger("DeathType_int", 1);
+            //Debug.Log("Game Over!");
+            //gameOver = true;
+
+            hp--;
             explosionParticle.Play();
-            dirtParticle.Stop();
             playerAudio.PlayOneShot(crashSfx);
+
+            if (hp <= 0)
+            {
+                playerAnim.SetBool("Death_b", true);
+                playerAnim.SetInteger("DeathType_int", 1);
+                dirtParticle.Stop();
+                gameOver = true;
+            }
+    
+            Destroy(collision.gameObject);
         }
     }
 

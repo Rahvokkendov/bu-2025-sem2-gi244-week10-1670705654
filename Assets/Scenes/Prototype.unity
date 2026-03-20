@@ -361,10 +361,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 10
   gravityModifier: 2
+  hp: 3
   explosionParticle: {fileID: 810715825}
   dirtParticle: {fileID: 1120688231}
   jumpSfx: {fileID: 8300000, guid: 08ab7053d586c458db3774d33c141a4b, type: 3}
   crashSfx: {fileID: 8300000, guid: 4bcde6de2166e41e284ec46d8a01fb90, type: 3}
+  dashAction:
+    m_Name: Dash
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 8739e558-aed2-4a0b-8c13-838e945012d9
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
   gameOver: 0
   jumpCount: 2
 --- !u!65 &383521443
@@ -897,6 +907,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  speedModifier: 2
 --- !u!65 &835818924
 BoxCollider:
   m_ObjectHideFlags: 0

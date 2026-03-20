@@ -22,7 +22,10 @@ public class SpawnManager : MonoBehaviour
         InvokeRepeating(nameof(SpawnObstacle), startDelay, repeatRate);
 
         GameObject.Find("Player").GetComponent<PlayerController>();
+        
     }
+
+  
 
     void SpawnObstacle()
     {
