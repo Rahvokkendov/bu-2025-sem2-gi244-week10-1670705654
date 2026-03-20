@@ -1,10 +1,14 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    public GameObject obstaclePrefab;
+    public List<GameObject> obstaclePrefab = new List<GameObject>(); 
+    //public GameObject obstaclePrefab;
     public Vector3 spawnPos = new(25, 0, 0);
 
+    
     public float startDelay = 2;
     public float repeatRate = 2;
 
@@ -22,6 +26,7 @@ public class SpawnManager : MonoBehaviour
 
     void SpawnObstacle()
     {
-        Instantiate(obstaclePrefab, spawnPos, obstaclePrefab.transform.rotation);
+        int prefabIndex = Random.Range(0, obstaclePrefab.Count);
+        Instantiate(obstaclePrefab[prefabIndex], spawnPos, obstaclePrefab[prefabIndex].transform.rotation);
     }
 }
