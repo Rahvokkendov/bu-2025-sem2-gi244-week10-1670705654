@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
 
     public bool gameOver = false;
 
+    public int jumpCount = 2;
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -40,13 +41,22 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (jumpAction.triggered && isOnGround && !gameOver)
+        if (jumpAction.triggered && jumpCount > 0 && !gameOver)
         {
             rb.AddForce(jumpForce * Vector3.up, ForceMode.Impulse);
             isOnGround = false;
             playerAnim.SetTrigger("Jump_trig");
             dirtParticle.Stop();
             playerAudio.PlayOneShot(jumpSfx);
+            jumpCount--;
+            if (jumpCount < 0)
+            {
+                jumpCount = 0;
+            }
+        }
+        if (isOnGround)
+        {
+            jumpCount = 2;
         }
     }
 
